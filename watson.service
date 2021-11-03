@@ -1,0 +1,30 @@
+# /etc/systemd/system/watson.service
+
+[Unit]
+Description=watson voice app
+
+# Requirements
+Requires=network.target
+
+# Dependency ordering
+After=network.target
+
+[Service]
+TimeoutStartSec=0
+RestartSec=10
+Restart=always
+
+# path to app
+WorkingDirectory=/home/swdcs/watson-voice-bot/
+# the user that you want to run app by
+#User=root
+
+KillSignal=SIGQUIT
+Type=notify
+NotifyAccess=all
+
+# Main process
+ExecStart=/usr/local/bin/uwsgi --ini uwsgi.ini
+
+[Install]
+WantedBy=multi-user.target

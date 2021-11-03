@@ -1,0 +1,8 @@
+python-dotenv
+flask
+pyopenssl
+flask_socketio
+flask_cors
+ibm_watson
+gevent
+gevent-websocket
