@@ -51,7 +51,7 @@ class WatsonAssistantSession(object):
 
     #end_def __init__
 
-    def createSession(self, assistantId, authToken):
+    def createSession(self, assistantId, authToken, region):
         print("Entering WatsonAssistantSession::createSession()")
         errorStr = ''
         if((assistantId is not None and assistantId != '') and (authToken is not None and authToken != '')):
@@ -59,6 +59,10 @@ class WatsonAssistantSession(object):
                 authenticator = IAMAuthenticator(authToken)
                 self.m_assistantId = assistantId
                 self.m_assistant = AssistantV2(version="2019-11-06", authenticator=authenticator)
+                if(region == "East"):
+                    self.m_assistant.set_service_url(str(os.environ.get("ASSISTANT_EAST_URL")))
+                else:
+                    self.m_assistant.set_service_url(str(os.environ.get("ASSISTANT_SOUTH_URL")))
             except:
                 errorStr = "Exception thrown while trying to authenticate session."
                 return errorStr
@@ -202,14 +206,15 @@ def login():
     logout()
 
     if request.method == 'POST':
-        assistantId = request.form['assistantid']
-        authToken = request.form['apiauthtoken']
+        assistantId = str(request.form['assistantid']).strip()
+        authToken = str(request.form['apiauthtoken']).strip()
+        region = request.form['region']
         if(assistantId == '' or authToken == ''):
             error = 'Invalid Credentials. Please try again.'
             return render_template('login.html', error=error)
         else:
             watsonAsstSession = WatsonAssistantSession()
-            error = watsonAsstSession.createSession(assistantId, authToken)
+            error = watsonAsstSession.createSession(assistantId, authToken, region)
             if(error != ''):
                 return render_template('login.html', error=error)
             else:
@@ -262,7 +267,7 @@ def getSpeechFromText():
             audioOut = ttsService.synthesize(
                 inputText,
                 accept='audio/wav',
-                voice='en-US_AllisonVoice').get_result()
+                voice='en-US_MichaelVoice').get_result()
 
             data = audioOut.content
         else:

@@ -4,6 +4,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="static/bootstrap.css" rel="stylesheet" media="screen">
   </head>
+  <style>
+  .combo {
+	  padding:4px;
+  }
+  </style>
   <body>
     <div class="container">
       <div class="header">
@@ -16,6 +21,10 @@
           request.form.assistantid }}">
          <input type="text" placeholder="APIAuthToken" name="apiauthtoken" size=55 value="{{
           request.form.apiauthtoken }}">
+	 <select class="combo" name="region">
+	   <option value="South">South Region</option>
+	   <option value="East">East Region</option>
+	 </select>
          <button class="btn btn-primary" type="submit">Submit</button>
       </form>
       {% if error %}
@@ -23,6 +32,9 @@
       {% endif %}
       <div>
         <h6>Note: If asked in the browser, allow access to the microphone. Microphone access required.</h3>
+      </div>
+      <div>
+        <h6>Note: Make sure to select the right Region for your Watson Assistant: South = Dallas, East = Washington D.C.</h3>
       </div>
     </div>
   </body>
