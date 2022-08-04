@@ -59,10 +59,22 @@ class WatsonAssistantSession(object):
                 authenticator = IAMAuthenticator(authToken)
                 self.m_assistantId = assistantId
                 self.m_assistant = AssistantV2(version="2019-11-06", authenticator=authenticator)
-                if(region == "East"):
-                    self.m_assistant.set_service_url(str(os.environ.get("ASSISTANT_EAST_URL")))
+                if(region == "us-east"):
+	                self.m_assistant.set_service_url(str(os.environ.get("ASSISTANT_EAST_URL")))
+                elif(region == "us-south"):
+	                self.m_assistant.set_service_url(str(os.environ.get("ASSISTANT_SOUTH_URL")))
+                elif(region == "eu-gb"):
+	                self.m_assistant.set_service_url(str(os.environ.get("ASSISTANT_GB_URL")))
+                elif(region == "eu-de"):
+	                self.m_assistant.set_service_url(str(os.environ.get("ASSISTANT_DE_URL")))
+                elif(region == "jp-tok"):
+	                self.m_assistant.set_service_url(str(os.environ.get("ASSISTANT_TOK_URL")))
+                elif(region == "au-syd"):
+	                self.m_assistant.set_service_url(str(os.environ.get("ASSISTANT_SYD_URL")))
+                elif(region == "kr-seo"):
+	                self.m_assistant.set_service_url(str(os.environ.get("ASSISTANT_SEO_URL")))
                 else:
-                    self.m_assistant.set_service_url(str(os.environ.get("ASSISTANT_SOUTH_URL")))
+	                self.m_assistant.set_service_url(str(os.environ.get("ASSISTANT_SOUTH_URL")))
             except:
                 errorStr = "Exception thrown while trying to authenticate session."
                 return errorStr
