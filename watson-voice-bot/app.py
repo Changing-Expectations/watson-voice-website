@@ -41,6 +41,7 @@ port = os.environ.get("PORT") or os.environ.get("VCAP_APP_PORT") or 443
 CORS(app)
 
 SessionDictionary = {}
+voice = "en-US_EmmaExpressive"
 
 class WatsonAssistantSession(object):
     m_session = None
@@ -210,6 +211,7 @@ def login():
     print("login() route selected.")
     error = ''
     global SessionDictionary
+    global voice
     assistantId = None
     authToken = None
     sessionKey = None
@@ -221,20 +223,24 @@ def login():
         assistantId = str(request.form['assistantid']).strip()
         authToken = str(request.form['apiauthtoken']).strip()
         region = request.form['region']
+        voice = request.form['voice']
         if(assistantId == '' or authToken == ''):
             error = 'Invalid Credentials. Please try again.'
+            return render_template('login.html', error=error)
+        elif(region == '' or voice == ''):
+            error = 'Invalid Region or Voice Selection. Please try again.'
             return render_template('login.html', error=error)
         else:
             watsonAsstSession = WatsonAssistantSession()
             error = watsonAsstSession.createSession(assistantId, authToken, region)
-            if(error != ''):
-                return render_template('login.html', error=error)
-            else:
-                sessionKey = watsonAsstSession.getSessionId()
-                SessionDictionary[sessionKey] = watsonAsstSession
-                session['assistantInstance'] = sessionKey
-                print("New session instance: "+sessionKey)
-                return redirect(url_for('home'))
+        if(error != ''):
+            return render_template('login.html', error=error)
+        else:
+            sessionKey = watsonAsstSession.getSessionId()
+            SessionDictionary[sessionKey] = watsonAsstSession
+            session['assistantInstance'] = sessionKey
+            print("New session instance: "+sessionKey)
+            return redirect(url_for('home'))
     return render_template('login.html', error=error)
 #end login()
 
@@ -270,6 +276,8 @@ def getConvResponse():
 @app.route('/api/text-to-speech', methods=['POST'])
 @login_required
 def getSpeechFromText():
+    global voice
+
     print("text-to-speech() route selected.")
 
     inputText = request.form.get('text')
@@ -279,7 +287,7 @@ def getSpeechFromText():
             audioOut = ttsService.synthesize(
                 inputText,
                 accept='audio/wav',
-                voice='en-US_MichaelVoice').get_result()
+                voice=voice).get_result()
 
             data = audioOut.content
         else:
