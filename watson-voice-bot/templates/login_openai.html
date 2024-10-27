@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title>OpenAI Assistant - login page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="static/bootstrap.css" rel="stylesheet" media="screen">
+  </head>
+  <style>
+  .combo {
+	  padding:4px;
+  }
+  </style>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>SWDCS OpenAI Assistant Speech Interaction Support</h1>
+        <br>
+        <h2>Please Login</h2>
+      </div>
+      <form action="" method="post">
+        <input type="text" placeholder="AssistantId" name="assistantid" autocomplete=on autofocus=autofocus size=45 value="{{
+          request.form.assistantid }}">
+         <input type="text" placeholder="APIAuthToken" name="apiauthtoken" size=55 value="{{
+          request.form.apiauthtoken }}">
+	 <select class="combo" name="voice">
+	   <option value="alloy">Alloy Voice</option>
+	   <option value="echo">Echo Voice</option>
+           <option value="fable">Fable Voice</option>
+	   <option value="onyx">Onyx Voice</option>
+	   <option value="nova">Nova Voice</option>
+	   <option value="shimmer">Shimmer Voice</option>
+	 </select>
+         <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+      <div>
+        <h6>Note: If asked in the browser, allow access to the microphone. Microphone access required.</h3>
+      </div>
+    </div>
+  </body>
+</html>
