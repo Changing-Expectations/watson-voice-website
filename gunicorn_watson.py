@@ -26,11 +26,11 @@ raw_env= [
 "ASSISTANT_AUTH_TYPE=iam",
 "ASSISTANT_URL=https://api.us-south.assistant.watson.cloud.ibm.com",
 "ASSISTANT_SOUTH_URL=https://api.us-south.assistant.watson.cloud.ibm.com",
-"ASSISTANT_EAST_URL=https://api.us-east.assistant.watson.cloud.ibm.com"
-"ASSISTANT_GB_URL=https://api.eu-gb.assistant.watson.cloud.ibm.com"
-"ASSISTANT_DE_URL=https://api.eu-de.assistant.watson.cloud.ibm.com"
-"ASSISTANT_TOK_URL=https://api.jp-tok.assistant.watson.cloud.ibm.com"
-"ASSISTANT_BRA_URL=https://api.br-sao.assistant.watson.cloud.ibm.com"
-"ASSISTANT_CAD_URL=https://api.ca-tor.assistant.watson.cloud.ibm.com"
+"ASSISTANT_EAST_URL=https://api.us-east.assistant.watson.cloud.ibm.com",
+"ASSISTANT_GB_URL=https://api.eu-gb.assistant.watson.cloud.ibm.com",
+"ASSISTANT_DE_URL=https://api.eu-de.assistant.watson.cloud.ibm.com",
+"ASSISTANT_TOK_URL=https://api.jp-tok.assistant.watson.cloud.ibm.com",
+"ASSISTANT_BRA_URL=https://api.br-sao.assistant.watson.cloud.ibm.com",
+"ASSISTANT_CAD_URL=https://api.ca-tor.assistant.watson.cloud.ibm.com",
 "ASSISTANT_SYD_URL=https://api.au-syd.assistant.watson.cloud.ibm.com"
 ]
